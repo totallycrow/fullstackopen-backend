@@ -1,8 +1,10 @@
 const { response } = require("express");
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const PORT = "3001";
 
+app.use(cors());
 var morgan = require("morgan");
 morgan.token("person", function (req, res) {
   const newPerson = {
@@ -67,7 +69,7 @@ app.get("/api/persons/:id", (req, res) => {
 app.delete("/api/persons/:id", (req, res) => {
   persons = persons.filter((person) => person.id !== Number(req.params.id));
 
-  res.sendStatus(204).end();
+  res.status(204).end();
 });
 
 app.post("/api/persons", (req, res) => {
