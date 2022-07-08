@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-if (process.argv.length < 3) {
+if (process.argv.length < 6) {
   console.log(
     "Please provide the password as an argument: node mongo.js <password>"
   );
@@ -12,7 +12,6 @@ const password = process.argv[2];
 const url = `mongodb+srv://fullstack:${password}@cluster0.uke9y.mongodb.net/phoneBook?retryWrites=true&w=majority`;
 
 const noteSchema = new mongoose.Schema({
-  id: String,
   name: String,
   number: String,
 });
@@ -25,9 +24,8 @@ mongoose
     console.log("connected");
 
     const note = new Note({
-      content: "TESTNOTE",
-      date: new Date(),
-      important: false,
+      name: "John",
+      number: "12-14556-132",
     });
 
     return note.save();
