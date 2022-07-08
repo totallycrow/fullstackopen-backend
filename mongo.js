@@ -9,37 +9,39 @@ if (process.argv.length < 3) {
 
 const password = process.argv[2];
 
-const url = `mongodb+srv://fullstack:${password}@cluster0.uke9y.mongodb.net/noteApp?retryWrites=true&w=majority`;
+const url = `mongodb+srv://fullstack:${password}@cluster0.uke9y.mongodb.net/phoneBook?retryWrites=true&w=majority`;
 
 const noteSchema = new mongoose.Schema({
-  content: String,
-  date: Date,
-  important: Boolean,
+  id: String,
+  name: String,
+  number: String,
 });
 
 const Note = mongoose.model("Note", noteSchema);
 
-mongoose.connect(url).then((result) => {
-  console.log("connected");
+mongoose
+  .connect(url)
+  .then((result) => {
+    console.log("connected");
 
-  //     const note = new Note({
-  //       content: "TESTNOTE",
-  //       date: new Date(),
-  //       important: false,
-  //     });
-
-  //     return note.save();
-  //   })
-  //   .then(() => {
-  //     console.log("note saved!");
-  //     return mongoose.connection.close();
-  //   })
-  //   .catch((err) => console.log(err));
-
-  Note.find({}).then((result) => {
-    result.forEach((note) => {
-      console.log(note);
+    const note = new Note({
+      content: "TESTNOTE",
+      date: new Date(),
+      important: false,
     });
-    mongoose.connection.close();
-  });
-});
+
+    return note.save();
+  })
+  .then(() => {
+    console.log("note saved!");
+    return mongoose.connection.close();
+  })
+  .catch((err) => console.log(err));
+
+//   Note.find({}).then((result) => {
+//     result.forEach((note) => {
+//       console.log(note);
+//     });
+//     mongoose.connection.close();
+//   });
+// });
